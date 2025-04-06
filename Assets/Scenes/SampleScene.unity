@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -190,6 +191,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732d3b04e13428a42858f9ddee4cece6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &376628069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 376628072}
+  - component: {fileID: 376628071}
+  - component: {fileID: 376628070}
+  m_Layer: 0
+  m_Name: PokerHandEvaluator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &376628070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376628069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c819d4343f8b249458d2e0123de94b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceList:
+  - {fileID: 1818838924}
+  - {fileID: 1296456643}
+  - {fileID: 875700621}
+  - {fileID: 1960892943}
+  - {fileID: 240464159}
+  - {fileID: 1480866106}
+--- !u!114 &376628071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376628069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b51208c525472f45abffbc92654ed97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handEvaluator: {fileID: 0}
+  resultText: {fileID: 0}
+--- !u!4 &376628072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376628069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3912771, y: 0.7573601, z: 3.7242475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,8 +886,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2028172313}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+      - m_Target: {fileID: 2028172315}
+        m_TargetAssemblyTypeName: Gamemanager, Assembly-CSharp
         m_MethodName: RollAllDice
         m_Mode: 1
         m_Arguments:
@@ -979,48 +1046,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2028172314}
-  - component: {fileID: 2028172313}
-  - component: {fileID: 2028172312}
+  - component: {fileID: 2028172315}
   m_Layer: 0
-  m_Name: GameManager2
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2028172312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028172311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d6a251cf31c1f44bbbac1867d20ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diceList:
-  - {fileID: 1818838924}
-  - {fileID: 1296456643}
-  - {fileID: 875700621}
-  - {fileID: 1960892943}
-  - {fileID: 240464159}
-  - {fileID: 1480866106}
---- !u!114 &2028172313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028172311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5fd9686730fa14b8799ae29ff5c6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handEvaluator: {fileID: 2028172312}
-  resultText: {fileID: 1782341302}
 --- !u!4 &2028172314
 Transform:
   m_ObjectHideFlags: 0
@@ -1036,6 +1069,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028172315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028172311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b51208c525472f45abffbc92654ed97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handEvaluator: {fileID: 376628070}
+  resultText: {fileID: 1782341302}
 --- !u!1001 &2082528767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1159,6 +1206,7 @@ SceneRoots:
   - {fileID: 796156765}
   - {fileID: 2720173851379847131}
   - {fileID: 2028172314}
+  - {fileID: 376628072}
   - {fileID: 233418617}
   - {fileID: 2082528767}
   - {fileID: 1453329659}
