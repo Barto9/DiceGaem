@@ -18,4 +18,18 @@ public class Dice : MonoBehaviour
     { locked = true;}
     public void Unlock()
     { locked = false;}
+
+    private void OnMouseDown()
+    {
+        locked = !locked;
+        switch (locked)
+        {
+            case true:
+                sprite.color = new Color(1, 1, 1, 0.5f);
+                break;
+            case false:
+                sprite.color = new Color(1, 1, 1, 1);
+                break;
+        }
+    }
 }

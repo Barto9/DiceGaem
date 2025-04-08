@@ -21,7 +21,7 @@ public class PokerHandEvaluator : MonoBehaviour
 
         var sortedFaces = faceCounts.Keys.OrderBy(x => x).ToList();
 
-        if (faceCounts.ContainsValue(5)) return "Five of a Kind";
+        if (faceCounts.ContainsValue(5) || faceCounts.ContainsValue(6)) return "Five of a Kind";
         if (faceCounts.ContainsValue(4)) return "Four of a Kind";
         if (faceCounts.ContainsValue(3) && faceCounts.ContainsValue(2)) return "Full House";
         if (sortedFaces.SequenceEqual(new List<int> { 0, 1, 2, 3, 4 }) || sortedFaces.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))

@@ -16,7 +16,10 @@ public class Gamemanager : MonoBehaviour
     public void RollAllDice()
     {
         foreach (var dice in handEvaluator.diceList)
-            dice.RollDice();
+            if (!dice.locked)
+            {
+                dice.RollDice();
+            }
 
         resultText.text = "Hand: " + handEvaluator.EvaluateHand();
     }
