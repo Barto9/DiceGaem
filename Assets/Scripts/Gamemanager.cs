@@ -7,6 +7,7 @@ public class Gamemanager : MonoBehaviour
 {
     public PokerHandEvaluator handEvaluator;
     public Text resultText;
+    public Text score;
 
     void Start()
     {
@@ -22,5 +23,6 @@ public class Gamemanager : MonoBehaviour
             }
 
         resultText.text = "Hand: " + handEvaluator.EvaluateHand();
+        score.text = "Score: " + handEvaluator.EvaluateScore();
     }
 }

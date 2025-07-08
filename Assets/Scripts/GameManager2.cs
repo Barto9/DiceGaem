@@ -7,10 +7,11 @@ public class GameManager2 : MonoBehaviour
 {
     public PokerHandEvaluator handEvaluator;
     public Text resultText;
+    public Text score;
 
     void Start()
     {
-        Debug.Log("GameManager Loaded"); // To confirm the script is running
+        Debug.Log("GameManager Loaded");
     }
 
     public void RollAllDice()
@@ -19,5 +20,7 @@ public class GameManager2 : MonoBehaviour
             dice.RollDice();
 
         resultText.text = "Hand: " + handEvaluator.EvaluateHand();
+        score.text = "Score: " + handEvaluator.EvaluateScore();
+        
     }
 }
