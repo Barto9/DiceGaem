@@ -200,7 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 376628072}
-  - component: {fileID: 376628074}
   - component: {fileID: 376628073}
   m_Layer: 0
   m_Name: PokerHandEvaluator
@@ -237,25 +236,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceList:
+  - {fileID: 1818838924}
   - {fileID: 1296456643}
   - {fileID: 875700621}
   - {fileID: 1960892943}
   - {fileID: 240464159}
-  - {fileID: 1480866106}
---- !u!114 &376628074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376628069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b51208c525472f45abffbc92654ed97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handEvaluator: {fileID: 0}
-  resultText: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,63 +595,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120146684}
   m_CullTransparentMesh: 1
---- !u!1001 &1180106183
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.169628
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.8378499
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 362589788210661776, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5077328041195088740, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-      propertyPath: m_Name
-      value: Dice (5)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
 --- !u!114 &1296456643 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3106515190015210593, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
@@ -792,17 +720,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
---- !u!114 &1480866106 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3106515190015210593, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
-  m_PrefabInstance: {fileID: 1180106183}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732d3b04e13428a42858f9ddee4cece6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1507014528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1011,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 180}
   m_SizeDelta: {x: 418.3526, y: 83.0546}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1818838924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3106515190015210593, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
+  m_PrefabInstance: {fileID: 2720173851379847131}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 732d3b04e13428a42858f9ddee4cece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1960892943 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3106515190015210593, guid: d4d972300327bad4aa7e3fe84899d66d, type: 3}
@@ -1146,7 +1074,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028172311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5fd9686730fa14b8799ae29ff5c6b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b51208c525472f45abffbc92654ed97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handEvaluator: {fileID: 376628073}
@@ -1273,11 +1201,10 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 560238351}
   - {fileID: 796156765}
-  - {fileID: 2720173851379847131}
   - {fileID: 2028172314}
   - {fileID: 376628072}
+  - {fileID: 2720173851379847131}
   - {fileID: 233418617}
   - {fileID: 2082528767}
   - {fileID: 1453329659}
   - {fileID: 1451261714}
-  - {fileID: 1180106183}
