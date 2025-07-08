@@ -882,7 +882,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2028172315}
         m_TargetAssemblyTypeName: Gamemanager, Assembly-CSharp
         m_MethodName: RollAllDice
         m_Mode: 1
