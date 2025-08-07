@@ -15,9 +15,15 @@ public class Dice : MonoBehaviour
         sprite.sprite = diceFaces[currentValue - 1];
     }
     public void Lock()
-    { locked = true;}
+    { 
+        locked = true;
+        sprite.color = new Color(1, 1, 1, 0.5f);
+    }
     public void Unlock()
-    { locked = false;}
+    { 
+        locked = false;
+        sprite.color = new Color(1, 1, 1, 1);
+    }
 
     private void OnMouseDown()
     {
