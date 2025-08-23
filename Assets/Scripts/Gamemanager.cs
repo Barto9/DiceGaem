@@ -13,17 +13,21 @@ public class Gamemanager : MonoBehaviour
     public int score = 0;
     public int rollCount;
     public Text rollCountDisplay;
+    public Text debugText;
     void Start()
     {
         rollCount = 3;
-        Debug.Log("GameManager Loaded"); // To confirm the script is running
+        debugText.text = "Welcome to Dicegaem";
+        scoreDisplay.text = "Score:";
+        rollCountDisplay.text = "Rolls:";
+        resultText.text = "Hand:";
     }
 
     public void RollAllDice()
     {
         if (rollCount <= 0)
         {
-            Debug.Log("Out of rolls");
+            debugText.text = "Out of rolls";
             return;
         }
         foreach (var dice in handEvaluator.diceList)
@@ -35,22 +39,24 @@ public class Gamemanager : MonoBehaviour
         resultText.text = "Hand: " + handEvaluator.EvaluateHand();
         score = handEvaluator.EvaluateScore();
         scoreDisplay.text = "Score: " + score;
-        rollCountDisplay.text = "Rolls " + rollCount;
+        rollCountDisplay.text = "Rolls: " + rollCount;
     }
 
     public void SubmitDamage()
     {
         if (rollCount == 3)
         { 
-            Debug.Log("Cannot Submit. Dice not rolled, or roll has been already submitted.");
+            debugText.text = "Cannot Submit. Dice not rolled.";
             return;
         }
-        enemy.TakeDamage(score);
         rollCount = 3;
+        rollCountDisplay.text = "Rolls: " + rollCount;
+        enemy.TakeDamage(score);
+        enemy.ExecuteIntent();
+        
         foreach (var dice in handEvaluator.diceList)
         {
             dice.Unlock();
-            Debug.Log("Dice unlocked");
         }
     }
 
