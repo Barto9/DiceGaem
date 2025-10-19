@@ -1181,13 +1181,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 30262906}
-  life: 100
+  health: 100
   lifeDisplay: {fileID: 105661889}
   intentDisplay: {fileID: 1627951213}
   IntentList:
   - index: 0
     moveType: Attack
     value: 20
+  currentIntent:
+    index: 0
+    moveType: 
+    value: 0
 --- !u!4 &1281316019
 Transform:
   m_ObjectHideFlags: 0

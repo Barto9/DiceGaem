@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class EnemyBase : MonoBehaviour
 {
     public Player player;
-    public int life = 100;
+    public int health = 100;
     public Text lifeDisplay;
     public Text intentDisplay;
 
     private void Start()
     {
-        lifeDisplay.text = "Life:" + life;
+        lifeDisplay.text = "Health:" + health;
         IntentChooser();
     }
     public void TakeDamage(int damage)
     {
-        life -= damage;
-        lifeDisplay.text = "Life:" + life;
-        if (life <= 0)
+        health -= damage;
+        lifeDisplay.text = "Health:" + health;
+        if (health <= 0)
         {
             Debug.Log("Enemy is dead");
         }
@@ -39,7 +39,7 @@ public class EnemyBase : MonoBehaviour
         public int value;
     }
     [SerializeField] private List<EnemyIntent> IntentList = new List<EnemyIntent>();
-    private EnemyIntent currentIntent;
+    public EnemyIntent currentIntent;
     public void IntentChooser()
     {
         int randomIndex = Random.Range(0, IntentList.Count);
