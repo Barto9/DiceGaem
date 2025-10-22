@@ -20,11 +20,11 @@ public class PokerHandEvaluator : MonoBehaviour
 
         var sortedFaces = faceCounts.Keys.OrderBy(x => x).ToList();
 
-        if (faceCounts.ContainsValue(5) || faceCounts.ContainsValue(6))
+        if (faceCounts.ContainsValue(5))
             return "Five of a Kind";
         if (faceCounts.ContainsValue(4)) return "Four of a Kind";
         if (faceCounts.ContainsValue(3) && faceCounts.ContainsValue(2)) return "Full House";
-        if (sortedFaces.SequenceEqual(new List<int> { 0, 1, 2, 3, 4 }) || sortedFaces.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
+        if (sortedFaces.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }) || sortedFaces.SequenceEqual(new List<int> { 2, 3, 4, 5, 6 }))
             return "Straight";
         if (faceCounts.ContainsValue(3)) return "Three of a Kind";
         if (faceCounts.Values.Count(v => v == 2) == 2) return "Two Pair";
@@ -32,6 +32,46 @@ public class PokerHandEvaluator : MonoBehaviour
 
         return "High Card";
     }
+    public Dictionary<int, int> GetLockedDiceCounts()
+    {
+        Dictionary<int, int> lockedFaceCounts = new Dictionary<int, int>();
+
+        foreach (var dice in diceList)
+        {
+            if (dice.locked) // Only count locked dice
+            {
+                if (lockedFaceCounts.ContainsKey(dice.currentValue))
+                    lockedFaceCounts[dice.currentValue]++;
+                else
+                    lockedFaceCounts[dice.currentValue] = 1;
+            }
+        }
+
+        return lockedFaceCounts;
+    }
+
+    public string EvaluateLocked()
+    {
+        var lockedCounts = GetLockedDiceCounts();
+
+        if (lockedCounts.Count == 0)
+            return "High Card";
+
+        var sortedFaces = lockedCounts.Keys.OrderBy(x => x).ToList();
+
+        if (lockedCounts.ContainsValue(5))
+            return "Five of a Kind";
+        if (lockedCounts.ContainsValue(4)) return "Four of a Kind";
+        if (lockedCounts.ContainsValue(3) && lockedCounts.ContainsValue(2)) return "Full House";
+        if (sortedFaces.Count == 5 && (sortedFaces.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }) || sortedFaces.SequenceEqual(new List<int> { 2, 3, 4, 5, 6 })))
+            return "Straight";
+        if (lockedCounts.ContainsValue(3)) return "Three of a Kind";
+        if (lockedCounts.Values.Count(v => v == 2) == 2) return "Two Pair";
+        if (lockedCounts.ContainsValue(2)) return "One Pair";
+
+        return "High Card";
+    }
+
     public int EvaluateScore()
     {
         return EvaluateHand() switch
