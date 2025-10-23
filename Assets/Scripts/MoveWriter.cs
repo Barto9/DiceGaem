@@ -2,32 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 public class MoveWriter : MonoBehaviour
 {
+//TODO: zapisywanie ruchów do pliku w formacie [odds, stakes, rerolls, killshot, panic]
     [SerializeField] private PokerHandEvaluator handEvaluator;
     [SerializeField] private Player player;
     [SerializeField] private EnemyBase enemy;
     [SerializeField] private Gamemanager gamemanager;
+//TODO: dodać przyciski i połączyć je z decision
     public class MoveEntry
     {
         public int Stakes;
         public double Odds;
         public int Rerolls;
-        public bool killshot;
+        public bool Killshot;
         public bool Panic;
+        public bool Decision; //true - reroll, false - submit
 
-        public MoveEntry(double odds, int stakes, int rerolls, bool killshot, bool panic)
+        public MoveEntry(double odds, int stakes, int rerolls, bool killshot, bool panic, bool decision)
         {
             Odds = odds;
             Stakes = stakes;
             Rerolls = rerolls;
             Killshot = killshot;
             Panic = panic;
+            Decision = decision;
         }
 
         public override string ToString()
         {
-            return $"[{Odds}, {Stakes},{Rerolls},{killshot}, {Panic}]";
+            return $"[{Odds}, {Stakes},{Rerolls},{Killshot}, {Panic}]";
         }
     }
 
@@ -39,11 +44,12 @@ public class MoveWriter : MonoBehaviour
     {
         if (handEvaluator == null) return 0.0;
         
-        var lockedCounts = GetLockedDiceCounts();
+        var lockedCounts = GetLockedDiceCount();
         int lockedDiceCount = GetLockedDiceCount();
         int remainingDice = 5 - lockedDiceCount;
         int values = GetLockedDifferentValuesCount();
-        double odds = 1 - Math.Pow(1 - (values/6), remainingDice);
+        double odds = 1 - System.Math.Pow(1 - (values/6), remainingDice);
+        return odds;
     }
 
     // Get count of locked dice
@@ -69,8 +75,6 @@ public class MoveWriter : MonoBehaviour
         
         return lockedValues.Count;
     }
-
-    }
     int getStake()
     {
         return handEvaluator != null ? handEvaluator.EvaluateScore() : 0;
@@ -85,13 +89,13 @@ public class MoveWriter : MonoBehaviour
     }
     bool getPanic()
     {
-        if (player!= null)
+        if (player != null)
         {
             if (player.health >= enemy.currentIntent.value && enemy.currentIntent.moveType == "Attack" && handEvaluator.EvaluateScore() <= enemy.health)
             {
                 return true;
             }
-            
+
         }
         return false;
     }
