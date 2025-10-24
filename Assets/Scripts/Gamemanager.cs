@@ -14,6 +14,7 @@ public class Gamemanager : MonoBehaviour
     public int rollCount;
     public Text rollCountDisplay;
     public Text debugText;
+    public MoveWriter moveWriter;
     void Start()
     {
         rollCount = 3;
@@ -25,13 +26,21 @@ public class Gamemanager : MonoBehaviour
 
     public void RollAllDice()
     {
+
+       
+
         if (rollCount <= 0)
         {
             debugText.text = "Out of rolls";
             return;
+        } 
+        //save move entry with decision true (reroll)
+        if (rollCount !=3)
+        {
+        moveWriter.SaveMoveEntry(new MoveWriter.MoveEntry(moveWriter.CalculateOdds(), score, rollCount, moveWriter.getKillshot(), moveWriter.getPanic(), true));
         }
         foreach (var dice in handEvaluator.diceList)
-            if (!dice.locked)
+            if (!dice.locked && rollCount != 3)
             {
                 dice.RollDice();
             }
@@ -49,6 +58,8 @@ public class Gamemanager : MonoBehaviour
             debugText.text = "Cannot Submit. Dice not rolled.";
             return;
         }
+        //save move entry with decision false (submit)
+        moveWriter.SaveMoveEntry(new MoveWriter.MoveEntry(moveWriter.CalculateOdds(), score, rollCount, moveWriter.getKillshot(), moveWriter.getPanic(), false));
         rollCount = 3;
         rollCountDisplay.text = "Rolls: " + rollCount;
         enemy.TakeDamage(score);

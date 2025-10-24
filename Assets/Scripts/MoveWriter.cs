@@ -5,12 +5,9 @@ using System.IO;
 using System.Linq;
 public class MoveWriter : MonoBehaviour
 {
-//TODO: zapisywanie ruchów do pliku w formacie [odds, stakes, rerolls, killshot, panic]
     [SerializeField] private PokerHandEvaluator handEvaluator;
     [SerializeField] private Player player;
     [SerializeField] private EnemyBase enemy;
-    [SerializeField] private Gamemanager gamemanager;
-//TODO: dodać przyciski i połączyć je z decision
     public class MoveEntry
     {
         public int Stakes;
@@ -32,25 +29,84 @@ public class MoveWriter : MonoBehaviour
 
         public override string ToString()
         {
-            return $"[{Odds}, {Stakes},{Rerolls},{Killshot}, {Panic}]";
+            return $"{Odds},{Stakes},{Rerolls},{Killshot},{Panic},{Decision}";
         }
     }
 
     public List<MoveEntry> MoveEntries = new List<MoveEntry>();
+    private string filePath;
 
-
-
-    double CalculateOdds() //szanse, że ruch będzie miał taką samą lub lepszą punktację
+    void Start()
     {
-        if (handEvaluator == null) return 0.0;
+        // Set up file path in project folder
+        filePath = Path.Combine(Application.dataPath, "..", "move_data.csv");
         
-        var lockedCounts = GetLockedDiceCount();
+        // Write CSV header if file doesn't exist
+        if (!File.Exists(filePath))
+        {
+            WriteHeader();
+        }
+    }
+
+    private void WriteHeader()
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine("Odds,Stakes,Rerolls,Killshot,Panic,Decision");
+        }
+    }
+
+    public void SaveMoveEntry(MoveEntry entry)
+    {
+        MoveEntries.Add(entry);
+        
+        // Append to CSV file
+        using (StreamWriter writer = new StreamWriter(filePath, true))
+        {
+            writer.WriteLine(entry.ToString());
+        }
+        
+        Debug.Log($"Move saved: {entry}");
+    }
+
+    public void SaveAllMoves()
+    {
+        using (StreamWriter writer = new StreamWriter(filePath, false))
+        {
+            writer.WriteLine("Odds,Stakes,Rerolls,Killshot,Panic,Decision");
+            
+            foreach (var entry in MoveEntries)
+            {
+                writer.WriteLine(entry.ToString());
+            }
+        }
+        
+        Debug.Log($"All {MoveEntries.Count} moves saved to {filePath}");
+    }
+
+    public float CalculateOdds() // szanse, że ruch będzie miał taką samą lub lepszą punktację
+    {
+        if (handEvaluator == null)
+        {
+            Debug.Log("handEvaluator is null");
+            return 0f;
+        }
+
         int lockedDiceCount = GetLockedDiceCount();
         int remainingDice = 5 - lockedDiceCount;
         int values = GetLockedDifferentValuesCount();
-        double odds = 1 - System.Math.Pow(1 - (values/6), remainingDice);
-        return odds;
+
+        Debug.Log($"Locked dice: {lockedDiceCount}, Remaining: {remainingDice}, Different values: {values}");
+
+        // Compute odds using float math
+        float odds = 1f - Mathf.Pow(1f - (values / 6f), remainingDice);
+
+        // Round to 2 decimal places
+        float oddsRounded = (float)System.Math.Round(odds, 2);
+
+        return oddsRounded;
     }
+
 
     // Get count of locked dice
     private int GetLockedDiceCount()
@@ -75,19 +131,11 @@ public class MoveWriter : MonoBehaviour
         
         return lockedValues.Count;
     }
-    int getStake()
-    {
-        return handEvaluator != null ? handEvaluator.EvaluateScore() : 0;
-    }
-    int getRerolls()
-    {
-        return gamemanager != null ? gamemanager.rollCount : 0;
-    }
-    bool getKillshot()
+    public bool getKillshot()
     {
         return handEvaluator.EvaluateScore() >= enemy.health;
     }
-    bool getPanic()
+    public bool getPanic()
     {
         if (player != null)
         {
