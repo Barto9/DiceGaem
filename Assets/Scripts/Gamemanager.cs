@@ -26,7 +26,14 @@ public class Gamemanager : MonoBehaviour
 
     public void RollAllDice()
     {
-
+        if (rollCount == 3)
+        {
+            foreach (var dice in handEvaluator.diceList)
+                if (!dice.locked)
+                {
+                    dice.Unlock();
+                }
+        }
        
 
         if (rollCount <= 0)
@@ -40,7 +47,7 @@ public class Gamemanager : MonoBehaviour
         moveWriter.SaveMoveEntry(new MoveWriter.MoveEntry(moveWriter.CalculateOdds(), score, rollCount, moveWriter.getKillshot(), moveWriter.getPanic(), true));
         }
         foreach (var dice in handEvaluator.diceList)
-            if (!dice.locked && rollCount != 3)
+            if (!dice.locked)
             {
                 dice.RollDice();
             }
