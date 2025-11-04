@@ -19,8 +19,8 @@ public class Gamemanager : MonoBehaviour
     {
         rollCount = 3;
         debugText.text = "Welcome to Dicegaem";
-        scoreDisplay.text = "Score:";
-        rollCountDisplay.text = "Rolls:";
+        scoreDisplay.text = "Score: 0 ";
+        rollCountDisplay.text = "Rolls: 3";
         resultText.text = "Hand:";
     }
 
@@ -29,7 +29,7 @@ public class Gamemanager : MonoBehaviour
         if (rollCount == 3)
         {
             foreach (var dice in handEvaluator.diceList)
-                if (!dice.locked)
+                if (dice.locked)
                 {
                     dice.Unlock();
                 }

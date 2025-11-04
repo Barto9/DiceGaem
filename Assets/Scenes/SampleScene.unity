@@ -1235,6 +1235,12 @@ MonoBehaviour:
   - index: 0
     moveType: Attack
     value: 20
+  - index: 1
+    moveType: Attack
+    value: 5
+  - index: 2
+    moveType: Attack
+    value: 10
   currentIntent:
     index: 0
     moveType: 

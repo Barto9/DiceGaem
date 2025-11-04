@@ -11,13 +11,13 @@ public class MoveWriter : MonoBehaviour
     public class MoveEntry
     {
         public int Stakes;
-        public double Odds;
+        public float Odds;
         public int Rerolls;
         public bool Killshot;
         public bool Panic;
         public bool Decision; //true - reroll, false - submit
 
-        public MoveEntry(double odds, int stakes, int rerolls, bool killshot, bool panic, bool decision)
+        public MoveEntry(float odds, int stakes, int rerolls, bool killshot, bool panic, bool decision)
         {
             Odds = odds;
             Stakes = stakes;
@@ -29,7 +29,7 @@ public class MoveWriter : MonoBehaviour
 
         public override string ToString()
         {
-            return $"{Odds},{Stakes},{Rerolls},{Killshot},{Panic},{Decision}";
+            return $"{Odds.ToString(System.Globalization.CultureInfo.InvariantCulture)},{Stakes},{Rerolls},{Killshot},{Panic},{Decision}";
         }
     }
 

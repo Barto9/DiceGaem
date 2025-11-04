@@ -37,14 +37,52 @@ print("\nSkill Classification - Feature importance:")
 for i, feature in enumerate(features):
     print(f"{feature}: {skill_tree.feature_importances_[i]:.3f}")
 
-# Make predictions for a new scenario
-new_scenario = [[0, 2, 2, 1, 1, 1]]  # Odds=0, Stakes=2, Rerolls=2, Killshot=True, Panic=True, Decision=True
-risk_prediction = risk_tree.predict(new_scenario)[0]
-skill_prediction = skill_tree.predict(new_scenario)[0]
+# Load and process move_data.csv for predictions
+print("\n" + "="*60)
+print("Predictions for scenarios in move_data.csv")
+print("="*60)
 
-print(f"\nPrediction for new scenario:")
-print(f"Risk: {'Risky' if risk_prediction == 1 else 'Turtle'}")
-print(f"Skill: {'Skillful' if skill_prediction == 1 else 'Newbie'}")
+move_data = pd.read_csv("move_data.csv")
+
+# Clean the data - remove rows with huge numbers and empty rows
+move_data = move_data.dropna(subset=['Odds', 'Stakes', 'Rerolls', 'Killshot', 'Panic', 'Decision'])  # Remove empty rows
+move_data = move_data[move_data['Stakes'] <= 100]  # Remove rows with huge stakes
+# Remove any rows that don't have exactly 6 columns (malformed rows)
+move_data = move_data.dropna(how='any', subset=['Odds', 'Stakes', 'Rerolls', 'Killshot', 'Panic', 'Decision'])
+
+# If Odds is somehow parsed as a string, fix it
+if move_data['Odds'].dtype == object:
+    # Replace comma with dot for decimal values
+    move_data['Odds'] = move_data['Odds'].astype(str).str.replace(',', '.', regex=False)
+    
+# Convert True/False to 1/0 for boolean columns
+move_data['Killshot'] = move_data['Killshot'].astype(int)
+move_data['Panic'] = move_data['Panic'].astype(int)
+move_data['Decision'] = move_data['Decision'].astype(int)
+
+# Prepare features for prediction
+X_move = move_data[features]
+
+# Make predictions for all scenarios
+risk_predictions = risk_tree.predict(X_move)
+skill_predictions = skill_tree.predict(X_move)
+
+# Display results
+print(f"\nTotal scenarios to predict: {len(move_data)}")
+print("\nPredictions:")
+print("-" * 60)
+print(f"{'Row':<6} {'Odds':<6} {'Stakes':<8} {'Rerolls':<8} {'Killshot':<10} {'Panic':<8} {'Decision':<10} {'Risk':<8} {'Skill':<10}")
+print("-" * 60)
+
+for idx, (i, row) in enumerate(move_data.iterrows()):
+    risk_label = "Risky" if risk_predictions[idx] == 1 else "Turtle"
+    skill_label = "Skillful" if skill_predictions[idx] == 1 else "Newbie"
+    
+    print(f"{idx+1:<6} {row['Odds']:<6.0f} {row['Stakes']:<8.0f} {row['Rerolls']:<8.0f} "
+          f"{bool(row['Killshot']):<10} {bool(row['Panic']):<8} {bool(row['Decision']):<10} "
+          f"{risk_label:<8} {skill_label:<10}")
+
+print("-" * 60)
 
 # Function to classify a move
 def classify_move(odds, stakes, rerolls, killshot, panic, decision):
@@ -60,8 +98,3 @@ def classify_move(odds, stakes, rerolls, killshot, panic, decision):
     skill_label = "Skillful" if skill_pred == 1 else "Newbie"
     
     return risk_label, skill_label
-
-# Example usage
-print(f"\nExample classification:")
-risk_class, skill_class = classify_move(0, 5, 2, True, False, True)
-print(f"Move classified as: {risk_class} / {skill_class}")
