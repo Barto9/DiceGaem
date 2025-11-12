@@ -3,7 +3,7 @@ from sklearn.tree import DecisionTreeClassifier
 import numpy as np
 
 # Load training data with Risk and Skill classifications
-data = pd.read_csv("training_data.csv")
+data = pd.read_csv("training_data.csv", sep=";")
 
 # Clean the data - remove the weird rows with huge numbers
 data = data[data['Stakes'] <= 100]
