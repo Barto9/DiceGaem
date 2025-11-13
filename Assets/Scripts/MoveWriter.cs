@@ -29,11 +29,7 @@ public class MoveWriter : MonoBehaviour
 
         public override string ToString()
         {
-<<<<<<< Updated upstream
-            return $"{Odds.ToString(System.Globalization.CultureInfo.InvariantCulture)},{Stakes},{Rerolls},{Killshot},{Panic},{Decision}";
-=======
-            return $"{Odds};{Stakes};{Rerolls};{Killshot};{Panic};{Decision}";
->>>>>>> Stashed changes
+            return $"{Odds.ToString(System.Globalization.CultureInfo.InvariantCulture)};{Stakes};{Rerolls};{Killshot};{Panic};{Decision}";
         }
     }
 
