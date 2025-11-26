@@ -52,7 +52,7 @@ public class MoveWriter : MonoBehaviour
     {
         using (StreamWriter writer = new StreamWriter(filePath))
         {
-            writer.WriteLine("Odds,Stakes,Rerolls,Killshot,Panic,Decision");
+            writer.WriteLine("Odds;Stakes;Rerolls;Killshot;Panic;Decision");
         }
     }
 
@@ -73,7 +73,7 @@ public class MoveWriter : MonoBehaviour
     {
         using (StreamWriter writer = new StreamWriter(filePath, false))
         {
-            writer.WriteLine("Odds,Stakes,Rerolls,Killshot,Panic,Decision");
+            writer.WriteLine("Odds;Stakes;Rerolls;Killshot;Panic;Decision");
             
             foreach (var entry in MoveEntries)
             {
