@@ -194,7 +194,7 @@ public class MoveWriter : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.health >= enemy.currentIntent.value && enemy.currentIntent.moveType == "Attack" && handEvaluator.EvaluateScore() <= enemy.health)
+            if (player.health <= enemy.currentIntent.value && enemy.currentIntent.moveType == "Attack")
             {
                 return true;
             }

@@ -18,7 +18,7 @@ public class Gamemanager : MonoBehaviour
     void Start()
     {
         rollCount = 3;
-        debugText.text = "Welcome to Dicegaem";
+        debugText.text = "Debug Text";
         scoreDisplay.text = "Score: 0 ";
         rollCountDisplay.text = "Rolls: 3";
         resultText.text = "Hand:";
@@ -66,7 +66,10 @@ public class Gamemanager : MonoBehaviour
             return;
         }
         //save move entry with decision false (submit)
-        moveWriter.SaveMoveEntry(new MoveWriter.MoveEntry(moveWriter.CalculateOdds(), score, rollCount, moveWriter.getKillshot(), moveWriter.getPanic(), false));
+        if(rollCount != 0)
+        {
+            moveWriter.SaveMoveEntry(new MoveWriter.MoveEntry(moveWriter.CalculateOdds(), score, rollCount, moveWriter.getKillshot(), moveWriter.getPanic(), false));
+        }
         rollCount = 3;
         rollCountDisplay.text = "Rolls: " + rollCount;
         enemy.TakeDamage(score);
